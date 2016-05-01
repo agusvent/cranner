@@ -1,0 +1,29 @@
+<div class="container" ng-controller="AltaController">
+	<h1>Alta de Proyectos</h1>
+
+	<table class="table">
+		<tbody>
+			<tr>
+				<td>
+					<label>Nombre</label>
+				</td>
+				<td>
+					<input class="form-control" ng-model="proyecto.nombre">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label>Descripción</label>
+				</td>
+				<td>
+					<input class="form-control" ng-model="proyecto.descripcion">
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<button class="btn btn-primary" ng-click="createProyect(proyecto)">Agregar Proyecto
+				</td>
+			</tr>
+    </tbody>
+  </table>
+</div>

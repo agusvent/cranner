@@ -1,0 +1,35 @@
+	<div class="container" ng-controller="EditController">
+		<h1>{{message}}</h1>
+		<h2>Editar de Proyectos ID {{idProyecto}}</h2>
+		<h3>Proyecto: {{proyecto}} </h3>
+		<h4>Descripcion: {{proyecto.descripcion}} </h4>
+
+		<form class="form-horizontal" role="form">
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="nombreProyecto">Nombre:</label>
+				<div class="col-sm-4">
+					<input type="text" class="form-control" ng-model="proyecto.nombre" id="nombreProyecto">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="descripcionProyecto">Descripción:</label>
+				<div class="col-sm-8">
+					<input type="text" class="form-control" ng-model="proyecto.descripcion" id="descripcionProyecto">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="myFile">Imagen:</label>
+				<div class="col-sm-8">
+					<input class="form-control" type="file" fileModel="myFile" name="myFile" id="myFile"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2"></label>
+				<div class="col-sm-2">
+					<button class="btn btn-success" ng-click="uploadFile()">Subir</button>
+				</div>
+			</div>
+			<button class="btn btn-success" ng-click="editProject(proyecto)">Editar</button>
+			<button class="btn btn-primary" ng-click="volver()">Volver</button>
+		</form>
+	</div>

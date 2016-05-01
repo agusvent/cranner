@@ -1,0 +1,23 @@
+<div class="container" ng-controller="MainController" data-ng-init="refresh()">
+  <h1>Listado de Proyectos</h1>
+
+<table class="table">
+  <thead>
+    <th>ID</th>
+    <th>Nombre</th>
+    <th>Descripción</th>
+    <th>Action</th>
+  </thead>
+  <tbody>
+    <tr ng-repeat="proyecto in proyectos">
+      <td>{{proyecto._id}}</td>
+      <td>{{proyecto.nombre}}</td>
+      <td>{{proyecto.descripcion}}</td>
+      <td>
+        <button class="btn btn-warning" ng-click="editProject(proyecto)">Editar</button>
+        <button class="btn btn-danger" ng-click="deleteProject(proyecto)">Eliminar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</div>
