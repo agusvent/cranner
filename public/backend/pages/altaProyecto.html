@@ -1,29 +1,23 @@
-<div class="container" ng-controller="AltaController">
-	<h1>Alta de Proyectos</h1>
-
-	<table class="table">
-		<tbody>
-			<tr>
-				<td>
-					<label>Nombre</label>
-				</td>
-				<td>
-					<input class="form-control" ng-model="proyecto.nombre">
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label>Descripción</label>
-				</td>
-				<td>
-					<input class="form-control" ng-model="proyecto.descripcion">
-				</td>
-			</tr>
-			<tr>
-				<td colspan="2">
-					<button class="btn btn-primary" ng-click="createProyect(proyecto)">Agregar Proyecto
-				</td>
-			</tr>
-    </tbody>
-  </table>
+<div ng-controller="AltaController">
+	<div class="col-md-12">
+		<div class="jumbotron">
+			<h2>Alta de Proyecto</h2>
+		</div>
+	</div>
+	<div class="col-md-8">
+		<form class="form-horizontal" role="form">
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="nombreProyecto">Nombre:</label>
+				<div class="col-sm-6">
+					<input type="text" class="form-control" ng-model="proyecto.nombre" id="nombreProyecto">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="descripcionProyecto">Descripción:</label>
+				<div class="col-sm-6">
+					<input type="text" class="form-control" ng-model="proyecto.descripcion" id="descripcionProyecto">
+				</div>
+			</div>
+			<button class="btn btn-primary" ng-click="createProyect(proyecto)">Agregar Proyecto
+		</form>
 </div>

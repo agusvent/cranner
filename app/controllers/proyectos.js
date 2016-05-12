@@ -36,6 +36,36 @@ module.exports = function (db, utils) {
       });
     },
 
+    uploadImageToProyecto: function(req,res,next){
+      console.log("uploadImageToProyecto",req.query.idProyecto)
+      /*
+      db.CProyectos.findOneAndUpdate({ _id: req.query.idProyecto }, { $set: { 'images': {'filename': req.query.fileName} }}, function(err,proyecto){
+        console.log("Proy: ",proyecto);
+        console.log("Error: ",err);
+        //res.status(200).json(proyecto);
+        next();
+      });
+*/
+      db.CProyectos.findOne({_id: req.query.idProyecto  }, function (err, proyecto) {
+        console.log("Proyectos x ID:", proyecto);
+        proyecto.images.push({'filename': req.query.fileName});
+        console.log("Proyecto con el Push:", proyecto);
+        proyecto.save(function (err, proyecto) {
+          console.log("Proyecto grabado");
+          if(err){
+            console.log("Error: ",err);
+            return utils.error(res, 403, 'Error en la carga de proyecto');
+          }
+          if(!proyecto){
+            return utils.error(res, 403, 'No se creó el proyecto');
+          }
+          //res.json(proyecto);
+          next();
+        })
+      })
+
+    },
+
     delete: function (req, res) {
       console.log("ELIMNANDO PROYECTO");
       //console.log(req.params)
@@ -54,6 +84,47 @@ module.exports = function (db, utils) {
         res.status(200).json(proyecto);
       })
     },
+
+    deleteImage: function(req,res,next){
+      console.log("***********************************")
+      console.log("PROYECTOS CONTROLLER - DELETE IMAGE")
+      console.log("***********************************")
+      console.log("deleteImage Param",req.param.idProyecto)
+      console.log("deleteImage Query",req.query.idProyecto)
+      /*
+      db.CProyectos.findOneAndUpdate({ _id: req.query.idProyecto }, { $set: { 'images': {'filename': req.query.fileName} }}, function(err,proyecto){
+        console.log("Proy: ",proyecto);
+        console.log("Error: ",err);
+        //res.status(200).json(proyecto);
+        next();
+      });
+*/
+      db.CProyectos.findOne({_id: req.query.idProyecto  }, function (err, proyecto) {
+
+        console.log("Eliminar Imagen. Proyecto: ",proyecto)
+        console.log("Eliminar Imagen. Imagen: ",req.query.idImagen)
+
+        proyecto.images.pull({_id: req.query.idImagen});
+        console.log("Ahora: ",proyecto);
+        proyecto.save(function (err, proyecto) {
+          console.log("Proyecto grabado");
+          if(err){
+            console.log("Error: ",err);
+            return utils.error(res, 403, 'Error en la carga de proyecto');
+          }
+          if(!proyecto){
+            return utils.error(res, 403, 'No se creó el proyecto');
+          }
+          console.log("Proyecto grabado. No hay errores");
+          res.json(proyecto);
+          //next();
+        })
+
+
+      })
+
+    },
+
 
   }
 }

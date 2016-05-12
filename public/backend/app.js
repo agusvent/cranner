@@ -1,20 +1,24 @@
-var myApp = angular.module('myApp', ['ngRoute']);
+var myApp = angular.module('myApp', ['ngRoute','ngAnimate','ui.bootstrap']);
 
 myApp.config(['$routeProvider', '$locationProvider',
     function($routeProvider, $locationProvider) {
   $routeProvider
   .when('/',{
+    templateUrl : 'pages/home.html',
+    controller  : "MainController"
+  })
+  .when('/Listado',{
     templateUrl : 'pages/listProyecto.html',
     controller  : "MainController"
   })
-    .when('/Alta',{
-      templateUrl : 'pages/altaProyecto.html',
-      controller  : "AltaController"
-    })
-    .when('/Editar/',{
-      templateUrl : 'pages/editarProyecto.html',
-      controller  : "EditController"
-    })
+  .when('/Alta',{
+    templateUrl : 'pages/altaProyecto.html',
+    controller  : "AltaController"
+  })
+  .when('/Editar/',{
+    templateUrl : 'pages/editarProyecto.html',
+    controller  : "EditController"
+  })
 }])
 
 myApp.directive('fileModel', ['$parse', function ($parse) {

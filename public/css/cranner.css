@@ -1,0 +1,10 @@
+.panel-heading-black{
+  background-color: #000000 !important;
+  background-image: linear-gradient(to bottom,#000000 0,#000000 100%) !important;
+  color: #FFFFFF !important;
+}
+
+.panel-body-black{
+  border-color: #000000 !important;
+  background-image: linear-gradient(to bottom,#000000 0,#000000 100%) !important;
+}

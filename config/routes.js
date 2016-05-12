@@ -1,4 +1,8 @@
+var multipart = require('connect-multiparty');
+var fse = require('fs-extra');
+var pathFile = require('path');
 module.exports = function (app, http, db) {
+
 
 var utils = require('../app/lib/utils')(db)
 
@@ -21,12 +25,36 @@ var utils = require('../app/lib/utils')(db)
   app.delete('/proyectos/:id',proyecto.delete);
   app.get('/proyecto/:id',proyecto.findById);
   app.put('/proyecto',proyecto.edit);
-  app.post('/fileUpload',function(req,res){
-    console.log("En Routes.js. Post de fileUpload");
-    console.dir(req.body);
-    //res.send(req.files.file.path);
-  });
 
+  app.delete('/eliminarImagen',proyecto.deleteImage);
+  /** Permissible loading a single file,
+      the value of the attribute "name" in the form of "recfile". **/
+  //var type = upload.single('recfile');
+
+  /*app.post('/fileUpload',function(req,res){
+    console.log("En Routes.js. Post de fileUpload");
+
+  });
+*/
+
+    app.put('/fileUpload',multipart(),proyecto.uploadImageToProyecto,function(req, resp) {
+      console.log("Entro al post de routes.js")
+      var path = req.files.file.path;
+      if (path!=''){
+        fse.copy(path, 'public/backend/uploads/'+req.files.file.name/*+pathFile.extname(path)*/, function(err){
+          console.log("Proyecto ID (fse.copy): ",req.query.idProyecto)
+          if (err){
+            console.log("Err: ",err);
+            return console.error(err);
+          }
+          console.log("Paso el error.")
+          resp.status(200).json([]);
+        });
+      }
+
+    // don't forget to delete all req.files when done
+
+  })
   // catch-all
   app.get('*', function (req, res) { res.status(404).json({ error:'Invalid GET request' }) })
   app.post('*', function (req, res) { res.status(404).json({ error:'Invalid POST request' }) })

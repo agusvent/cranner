@@ -1,7 +1,8 @@
 var express = require('express')
-  , os = require('os')
-  , interfaces = os.networkInterfaces()
-  , addrs = []
+var bodyParser = require('body-parser')
+var os = require('os')
+var interfaces = os.networkInterfaces()
+var addrs = []
 
 // Set config.host ip
 for (k in interfaces) {
@@ -33,6 +34,10 @@ module.exports = function (app, config) {
 
   // Configure API environment
   app.configure(function () {
+    app.use(bodyParser.urlencoded({
+      extended: true
+    }));
+    //app.use(bodyParser.json())
     app.use(express.compress())
     app.use(express.logger('dev'))
     app.use(express.json({ limit:'10mb' }))
@@ -41,6 +46,8 @@ module.exports = function (app, config) {
     app.use(express.methodOverride())
     app.use(express.static(config.root + '/media'))
     app.use(express.static(config.root + '/public'))
+    //Con esto incluyo la carpeta de modulos como estatica para poder accederla
+    app.use(express.static(config.root + '/node_modules'))
     //app.use(express.favicon(config.root + '/public/img/favicon.ico'))
     app.use(express.session({
       store:sessions,
